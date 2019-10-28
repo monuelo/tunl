@@ -13,6 +13,8 @@ port = config.get('general', 'port')
 
 debug = config.get('general', 'debug').lower()
 
+kubeconfig = config.get('general', 'kubeconfig')
+
 if debug == "true":
     debug = True
 elif debug == "false":
