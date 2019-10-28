@@ -2,7 +2,7 @@ import kubernetes as kube
 from config import kubeconfig
 
 
-def create_job(app_id, cmd, img):
+def create_job(app_id, cmd, img, namespace="default"):
 
     kube.config.load_kube_config(kubeconfig)
 
@@ -52,6 +52,43 @@ def create_job(app_id, cmd, img):
         spec=job_spec)
 
     batch_v1 = kube.client.BatchV1Api()
-    batch_v1.create_namespaced_job("default", job)
+    batch_v1.create_namespaced_job(namespace, job)
 
     return job
+
+
+def create_service(app_id, namespace="default"):
+
+    svc_meta = {
+        "name": 'service-' + app_id,
+        "labels": {
+            "app": 'service-' + app_id
+        }
+    }
+
+    svc_spec = {
+        "ports": [{
+            "protocol": "TCP",
+            "port": 5000,
+            "targetPort": 5000
+        }],
+        "selector": {
+            "app": 'service-' + app_id
+        },
+        "type": "NodePort"
+    }
+
+    CoreV1Api = kube.client.CoreV1Api()
+    node_port = None
+    try:
+        svc = kube.client.V1Service(
+            spec=svc_spec, api_version="v1", kind="Service", metadata=svc_meta)
+
+        print("Creating service...")
+
+        s = CoreV1Api.create_namespaced_service(
+            namespace=namespace, body=svc)
+        node_port = s.spec.ports[0].node_port
+
+    except kube.client.rest.ApiException as e:
+        print(e)
