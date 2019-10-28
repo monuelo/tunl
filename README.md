@@ -19,9 +19,9 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage
-To start the terminal cast application, run:
+To start the podcast application, run:
 ```
-python3 -m cast
+python3 -m podcast
 ```
 
 
