@@ -12,5 +12,18 @@
         <img src="https://img.shields.io/github/license/pod-cast/podcast" /></a>
 </p>
 
+## Installation & Prerequisites
+Use the package manager pip to install the dependencies before run the application
+```
+pip3 install -r requirements.txt
+```
 
+## Usage
+To start the terminal cast application, run:
+```
+python3 -m cast
+```
+
+
+## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast?ref=badge_large)
