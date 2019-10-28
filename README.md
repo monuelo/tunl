@@ -7,6 +7,10 @@
             alt="Python 3.5-3.7"/></a>
 <a target="_blank" href="https://github.com/pod-cast/podcast/pulse" alt="Activity">
         <img src="https://img.shields.io/github/commit-activity/m/pod-cast/podcast" /></a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast.svg?type=shield"/></a>
     <a target="_blank" href="https://github.com/pod-cast/podcast/blob/dev/LICENSE" alt="License">
         <img src="https://img.shields.io/github/license/pod-cast/podcast" /></a>
 </p>
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast?ref=badge_large)
