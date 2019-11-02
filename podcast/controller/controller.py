@@ -2,12 +2,17 @@ import kubernetes as kube
 from config import kubeconfig
 
 
-def create_job(app_id, cmd, img, namespace="default"):
+casts = {}
+
+def create_job(app_id, image="podcastsh/cast-sh:dev", namespace="default"):
 
     kube.config.load_kube_config(kubeconfig)
 
     obj_meta = kube.client.V1ObjectMeta(
-        name=app_id)
+        labels={
+            "app": "cast-{}".format(app_id)
+        },
+        name="cast-{}".format(app_id))
 
     isgx = kube.client.V1VolumeMount(
         mount_path="/dev/isgx",
@@ -22,10 +27,9 @@ def create_job(app_id, cmd, img, namespace="default"):
     )
 
     container_spec = kube.client.V1Container(
-        command=cmd,
-        image=img,
+        image=image,
         image_pull_policy="Always",
-        name=app_id,
+        name="cast-{}".format(app_id),
         tty=True,
         volume_mounts=[isgx],
         security_context=kube.client.V1SecurityContext(
@@ -52,17 +56,21 @@ def create_job(app_id, cmd, img, namespace="default"):
         spec=job_spec)
 
     batch_v1 = kube.client.BatchV1Api()
-    batch_v1.create_namespaced_job(namespace, job)
+    job = batch_v1.create_namespaced_job(namespace, job)
 
-    return job
+    port = create_service(app_id)
+
+    ip = get_node_ip()
+
+    return {"url": "{}:{}".format(ip, port)}
 
 
 def create_service(app_id, namespace="default"):
 
     svc_meta = {
-        "name": 'service-' + app_id,
+        "name": "cast-{}".format(app_id),
         "labels": {
-            "app": 'service-' + app_id
+            "app": "cast-{}".format(app_id)
         }
     }
 
@@ -73,22 +81,29 @@ def create_service(app_id, namespace="default"):
             "targetPort": 5000
         }],
         "selector": {
-            "app": 'service-' + app_id
+            "app": "cast-{}".format(app_id)
         },
         "type": "NodePort"
     }
 
     CoreV1Api = kube.client.CoreV1Api()
-    node_port = None
-    try:
-        svc = kube.client.V1Service(
-            spec=svc_spec, api_version="v1", kind="Service", metadata=svc_meta)
 
-        print("Creating service...")
+    svc = kube.client.V1Service(
+        spec=svc_spec, api_version="v1", kind="Service", metadata=svc_meta)
 
-        s = CoreV1Api.create_namespaced_service(
-            namespace=namespace, body=svc)
-        node_port = s.spec.ports[0].node_port
+    s = CoreV1Api.create_namespaced_service(
+        namespace=namespace, body=svc)
+    node_port = s.spec.ports[0].node_port
 
-    except kube.client.rest.ApiException as e:
-        print(e)
+    return node_port
+
+
+def get_node_ip():
+    nodes = kube.client.CoreV1Api().list_node().items
+    for node in nodes:
+        is_ready = [s for s in node.status.conditions if s.type == 'Ready'][0].status == 'True'
+        if is_ready:
+            node_info = node
+
+    node_ip = node_info.status.addresses[0].address
+    return node_ip
