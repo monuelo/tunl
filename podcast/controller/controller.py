@@ -4,6 +4,7 @@ from config import kubeconfig
 
 casts = {}
 
+
 def create_job(app_id, image="podcastsh/cast-sh:dev", namespace="default"):
 
     kube.config.load_kube_config(kubeconfig)
@@ -101,7 +102,8 @@ def create_service(app_id, namespace="default"):
 def get_node_ip():
     nodes = kube.client.CoreV1Api().list_node().items
     for node in nodes:
-        is_ready = [s for s in node.status.conditions if s.type == 'Ready'][0].status == 'True'
+        is_ready = [s for s in node.status.conditions if s.type ==
+                    'Ready'][0].status == 'True'
         if is_ready:
             node_info = node
 
