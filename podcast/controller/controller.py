@@ -107,5 +107,8 @@ def get_node_ip():
         if is_ready:
             node_info = node
 
-    node_ip = node_info.status.addresses[0].address
-    return node_ip
+    addresses = node_info.status.addresses
+
+    for address in addresses:
+        if (address.type) == "ExternalIP":
+            return address.address
