@@ -14,19 +14,20 @@ cors = CORS(app, resources={r"/create*": {"origins": "*"}})
 def create_container():
     if request.method == "POST":
         req = request.get_json()
-        image = req.get('image')
-        password = req.get('password')
+        image = req.get("image")
+        password = req.get("password")
         job_id = random_string(string_length=5)
 
         if image is not None:
-            return json.dumps(controller.create_job(job_id, {"PASSWD": password}, image=image))
+            return json.dumps(
+                controller.create_job(job_id, {"PASSWD": password}, image=image)
+            )
         else:
             return json.dumps(controller.create_job(job_id, {"PASSWD": password}))
 
 
 def start():
-    app.run(host=config.host, port=config.port,
-            debug=config.debug)
+    app.run(host=config.host, port=config.port, debug=config.debug)
 
 
 if __name__ == "__main__":
