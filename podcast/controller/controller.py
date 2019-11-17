@@ -5,7 +5,7 @@ from config import kubeconfig
 casts = {}
 
 
-def create_job(app_id, image="podcastsh/cast-sh:dev", namespace="default"):
+def create_job(app_id, env_vars, image="podcastsh/cast-sh:dev", namespace="default"):
 
     kube.config.load_kube_config(kubeconfig)
 
@@ -14,6 +14,16 @@ def create_job(app_id, image="podcastsh/cast-sh:dev", namespace="default"):
             "app": "cast-{}".format(app_id)
         },
         name="cast-{}".format(app_id))
+
+    envs = []
+
+    for key in env_vars.keys():
+
+        var = kube.client.V1EnvVar(
+            name=key,
+            value=env_vars[key])
+
+        envs.append(var)
 
     isgx = kube.client.V1VolumeMount(
         mount_path="/dev/isgx",
@@ -29,6 +39,7 @@ def create_job(app_id, image="podcastsh/cast-sh:dev", namespace="default"):
 
     container_spec = kube.client.V1Container(
         image=image,
+        env=envs,
         image_pull_policy="Always",
         name="cast-{}".format(app_id),
         tty=True,
