@@ -10,7 +10,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/create*": {"origins": "*"}})
 
 
-@app.route("/create/", methods=["POST"])
+@app.route("/create", methods=["POST"])
 def create_container():
     if request.method == "POST":
         req = request.get_json()
