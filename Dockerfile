@@ -1,5 +1,9 @@
 FROM python:3.6
-WORKDIR /podcast
+
+WORKDIR /app
+
 COPY . .
+
 RUN pip install -r requirements.txt
-CMD ["python", "-m", "podcast"]
+
+CMD ["python", "-m", "pipeflow"]

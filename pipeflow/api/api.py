@@ -3,8 +3,8 @@ from flask_cors import CORS
 import json
 
 import config
-from podcast.controller import controller
-from podcast.utils import random_string
+from pipeflow.controller import controller
+from pipeflow.utils import random_string
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/create*": {"origins": "*"}})
