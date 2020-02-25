@@ -1,4 +1,4 @@
-![Podcast](/art/podcast_wide.png)
+![PipeFlow](/art/pipeflow_wide.png)
 <p align="center">
     <a target="_blank" href="https://github.com/pod-cast/podcast/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/pod-cast/podcast" /></a>
