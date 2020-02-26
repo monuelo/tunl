@@ -5,7 +5,7 @@ from config import kubeconfig
 casts = {}
 
 
-def create_job(app_id, env_vars, image="podcastsh/cast-sh:dev", namespace="default"):
+def create_job(app_id, env_vars, image="pipeflow/cast-sh:dev", namespace="default"):
 
     kube.config.load_kube_config(kubeconfig)
 
