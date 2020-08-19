@@ -13,8 +13,8 @@
     <a class="reference external" href="https://github.com/psf/black">
         <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
     </a>
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast?ref=badge_shield" alt="FOSSA Status">
-        <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast.svg?type=shield"/>
+    <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Ftunl%2Ftunl?ref=badge_shield" alt="FOSSA Status">
+        <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftunl%2Ftunl.svg?type=shield"/>
     </a>
     <a target="_blank" href="https://github.com/tunl/tunl/blob/dev/LICENSE" alt="License">
         <img src="https://img.shields.io/github/license/tunl/tunl" />
@@ -35,4 +35,4 @@ python3 -m tunl
 
 
 ## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpod-cast%2Fpodcast?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftunl%2Ftunl.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftunl%2Ftunl?ref=badge_large)
